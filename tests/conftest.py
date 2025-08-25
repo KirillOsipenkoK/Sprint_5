@@ -1,4 +1,16 @@
+import os
+from dotenv import load_dotenv
+from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
+
+load_dotenv()  # Загружаем переменные из .env
+
+class TestBase:
+    def setup_method(self):
+        chrome_driver_path = os.getenv('CHROMEDRIVER_PATH')
+        service = Service(executable_path=chrome_driver_path)
+        self.driver = webdriver.Chrome(service=service)
+
 import pytest
 from locators import MainPageLocators, AuthPageLocators
 from urls import URLS
